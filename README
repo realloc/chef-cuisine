@@ -1,0 +1,18 @@
+# Quick Start
+
+Just go to clone directory and follow the instructions.
+
+    $ rake
+    $ vagrant up chef
+
+When you have VM configured, scp misc/solo.rb to vm:/etc/chef/solo.rb
+and run
+    $ chef-solo
+
+# Building vagrant baseboxes
+
+    $ rake baseboxes
+    $ vagrant box add 'debian6x64' 'debian6x64.box'
+
+Upload .box image to storage_3709_10 in the container matching repo
+name for which the image was built, if you want.

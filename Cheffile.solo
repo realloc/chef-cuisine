@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+# cookbook 'ntp' , '1.1.8'
+
+cookbook "chef-solo-search",
+  :git => "https://github.com/Tealium/chef-solo-search.git"
+
