@@ -1,7 +1,11 @@
 tmp
 pkg
+iso
+boxes
 cookbooks
 cookbooks.solo
 Cheffile.lock
 Gemfile.lock
 .vagrant
+repos/debian/Packages.gz
+repos/debian/Sources.gz
