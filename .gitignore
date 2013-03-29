@@ -1,0 +1,7 @@
+tmp
+pkg
+cookbooks
+cookbooks.solo
+Cheffile.lock
+Gemfile.lock
+.vagrant
