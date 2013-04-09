@@ -23,17 +23,17 @@ Dir.glob("definitions/*").each do |dfntn|
   boxlist.add("boxes/#{box}")
   desc "Build #{box} from #{dfntn}"
   file "boxes/#{box}" => FileList["#{dfntn}/*"] do |t|
-    sh "vagrant basebox build #{vm} -a -n -f"    
+    sh "vagrant basebox build #{vm} -a -f"
     sh "VBoxManage controlvm #{vm} poweroff"
     Dir.chdir "boxes" do
-      sh "vagrant basebox export #{vm} -f"    
+      sh "vagrant basebox export #{vm} -f"
     end
     sh "VBoxManage unregistervm #{vm} --delete"
   end
 end
 
 desc "Generate Vagrant boxes"
-file "baseboxes" => [ "boxes", boxlist ]
+file "baseboxes" => [ "boxes"] +  boxlist
 
 desc "Regenerate local repository metadata"
 task :repos do
@@ -53,7 +53,7 @@ task :solo => ["cookbooks.solo"] do
   Dir.chdir tmpdir do
     sh "bundle install"
     sh "bundle exec librarian-chef install"
-  end  
+  end
   FileUtils.cp_r Dir.glob(tmpdir +"/cookbooks/*"), "cookbooks.solo"
   FileUtils.rm_rf tmpdir
   artclean "cookbooks.solo"
@@ -86,7 +86,7 @@ task :qspack  do
   sh "tar -czf pkg/chef-solo.tar.gz --transform 's%^cookbooks.solo%cookbooks%' cookbooks.solo roles data_bags"
 end
 
-desc "Prepare dev env" 
+desc "Prepare dev env"
 task :default => ["repos", "client", "pack", "solo", "spack"]
 
 desc "Upload kitchen contents to local Chef Server"
