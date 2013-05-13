@@ -1,14 +1,14 @@
 # -*- mode: ruby -*-
 
 intnetname="devnet"
-intdomain=".dev.realloc.spb.ru"
+intdomain=".realloc.spb.ru"
 vbnet="192.168.33"
 
 Vagrant::Config.run do |config|
 
   config.vm.define :rainbowdash do |rainbowdash|
-    rainbowdash.vm.box = "debian6x64-chef11"
-    rainbowdash.vm.box_url = "http://vagrant.clodo.ru/clododevenv/debian6x64-chef11.box"
+    rainbowdash.vm.box = "debian7x64"
+    rainbowdash.vm.box_url = "http://static.realloc.spb.ru/boxes/debian7x64.box"
     rainbowdash.vm.host_name = "rainbowdash#{intdomain}"
     rainbowdash.vm.boot_mode = :gui
     rainbowdash.vm.network :hostonly, "#{vbnet}.11" , :adapter => 2
