@@ -23,10 +23,10 @@ Dir.glob("definitions/*").each do |dfntn|
   boxlist.add("boxes/#{box}")
   desc "Build #{box} from #{dfntn}"
   file "boxes/#{box}" => FileList["#{dfntn}/*"] do |t|
-    sh "vagrant basebox build #{vm} -a -f"
+    sh "bundle exec veewee vbox build #{vm}"
     sh "VBoxManage controlvm #{vm} poweroff"
     Dir.chdir "boxes" do
-      sh "vagrant basebox export #{vm} -f"
+      sh "bundle exec veewee vbox export #{vm}"
     end
     sh "VBoxManage unregistervm #{vm} --delete"
   end
