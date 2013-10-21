@@ -27,6 +27,9 @@ Set correct network settings in VirtualBox and in Vagrantfile
 Populate cookbooks
 
     $ rake
+
+Run sample VM
+
     $ vagrant up rainbowdash
 
 When you have VM configured, scp misc/solo.rb to vm:/etc/chef/solo.rb
