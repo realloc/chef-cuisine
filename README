@@ -12,7 +12,4 @@ and run
 # Building vagrant baseboxes
 
     $ rake baseboxes
-    $ vagrant box add 'debian6x64' 'debian6x64.box'
-
-Upload .box image to storage_3709_10 in the container matching repo
-name for which the image was built, if you want.
+    $ vagrant box add 'debian7x64' 'boxes/debian7x64.box'

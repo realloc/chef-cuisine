@@ -17,7 +17,7 @@ Veewee::Definition.declare({
     'kbd-chooser/method=us ',
     'keyboard-configuration/xkb-keymap=us ',
     'netcfg/get_hostname=%NAME% ',
-    'netcfg/get_domain=dev.clodo.ru ',
+    'netcfg/get_domain=dev.realloc.spb.ru ',
     'fb=false ',
     'debconf/frontend=noninteractive ',
     'console-setup/ask_detect=false ',
