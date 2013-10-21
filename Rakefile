@@ -50,7 +50,7 @@ task :solo => ["cookbooks.solo"] do
   FileUtils.cp  "Cheffile.solo", tmpdir+"/Cheffile"
   FileUtils.cp  "Gemfile", tmpdir
   Dir.chdir tmpdir do
-    sh "bundle install"
+    sh "bundle check || bundle install"
     sh "bundle exec librarian-chef install"
   end
   FileUtils.cp_r Dir.glob(tmpdir +"/cookbooks/*"), "cookbooks.solo"
@@ -60,7 +60,7 @@ end
 
 desc "Populate cookbooks"
 task :client  do
-  sh "bundle install"
+  sh "bundle check || bundle install"
   sh "bundle exec librarian-chef install"
   artclean "cookbooks"
 end
