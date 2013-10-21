@@ -23,12 +23,11 @@ Dir.glob("definitions/*").each do |dfntn|
   boxlist.add("boxes/#{box}")
   desc "Build #{box} from #{dfntn}"
   file "boxes/#{box}" => FileList["#{dfntn}/*"] do |t|
-    sh "vagrant basebox build #{vm} -a -f"
+    sh "bundle exec veewee vbox build #{vm}"
     sh "VBoxManage controlvm #{vm} poweroff"
-    Dir.chdir "boxes" do
-      sh "vagrant basebox export #{vm} -f"
-    end
-    sh "VBoxManage unregistervm #{vm} --delete"
+    sh "vagrant basebox export #{vm} -f &&
+        mv #{box} boxes/#{box} && 
+        VBoxManage unregistervm #{vm} --delete"
   end
 end
 
@@ -51,7 +50,7 @@ task :solo => ["cookbooks.solo"] do
   FileUtils.cp  "Cheffile.solo", tmpdir+"/Cheffile"
   FileUtils.cp  "Gemfile", tmpdir
   Dir.chdir tmpdir do
-    sh "bundle install"
+    sh "bundle check || bundle install"
     sh "bundle exec librarian-chef install"
   end
   FileUtils.cp_r Dir.glob(tmpdir +"/cookbooks/*"), "cookbooks.solo"
@@ -61,7 +60,7 @@ end
 
 desc "Populate cookbooks"
 task :client  do
-  sh "bundle install"
+  sh "bundle check || bundle install"
   sh "bundle exec librarian-chef install"
   artclean "cookbooks"
 end

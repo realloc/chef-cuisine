@@ -1,9 +1,36 @@
 # Quick Start
 
-Just go to clone directory and follow the instructions.
+Just go to cloned repo directory and follow the instructions.
+
+Set correct network settings in VirtualBox and in Vagrantfile
+
+    $ VBoxManage list hostonlyifs
+    Name:            vboxnet1
+    GUID:            786f6276-656e-4174-8000-0a0027000001
+    DHCP:            Disabled
+    IPAddress:       192.168.33.1
+    NetworkMask:     255.255.255.0
+    IPV6Address:     fe80:0000:0000:0000:0800:27ff:fe00:0001
+    IPV6NetworkMaskPrefixLength: 64
+    HardwareAddress: 0a:00:27:00:00:01
+    MediumType:      Ethernet
+    Status:          Up
+    VBoxNetworkName: HostInterfaceNetworking-vboxnet1
+
+    $ head -n5 Vagrantfile
+    # -*- mode: ruby -*-
+
+    intnetname="devnet"
+    intdomain=".realloc.spb.ru"
+    vbnet="192.168.33"
+
+Populate cookbooks
 
     $ rake
-    $ vagrant up chef
+
+Run sample VM
+
+    $ vagrant up rainbowdash
 
 When you have VM configured, scp misc/solo.rb to vm:/etc/chef/solo.rb
 and run
@@ -12,7 +39,4 @@ and run
 # Building vagrant baseboxes
 
     $ rake baseboxes
-    $ vagrant box add 'debian6x64' 'debian6x64.box'
-
-Upload .box image to storage_3709_10 in the container matching repo
-name for which the image was built, if you want.
+    $ vagrant box add 'debian7x64' 'boxes/debian7x64.box'
