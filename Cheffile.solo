@@ -4,4 +4,5 @@
 site 'http://community.opscode.com/api/v1'
 
 cookbook 'ntp' , '1.5.0'
-
+cookbook 'platform_packages', '0.4.2'
+cookbook 'omnibus_updater', '0.2.4'
