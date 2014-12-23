@@ -3,9 +3,14 @@ pkg
 iso
 boxes
 cookbooks
-cookbooks.solo
-Cheffile.lock
 Gemfile.lock
 .vagrant
 repos/debian/Packages.gz
 repos/debian/Sources.gz
+definitions/*/packer_cache
+definitions/*/output*
+definitions/*/*.box
+.bundle*
+.vagrant*
+
+
