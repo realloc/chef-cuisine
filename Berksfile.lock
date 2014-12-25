@@ -1,0 +1,9 @@
+DEPENDENCIES
+  ntp (= 1.6.5)
+  omnibus_updater (= 1.0.2)
+  platform_packages (= 0.4.2)
+
+GRAPH
+  ntp (1.6.5)
+  omnibus_updater (1.0.2)
+  platform_packages (0.4.2)
