@@ -58,7 +58,7 @@ end
 
 desc "Regenerate cookbooks"
 task :regen  do
-  sh "rm Berksfile.lock"
+  sh "rm Berksfile.lock || echo 'No berkshelf lock found'"
   Rake::Task["berkshelf"].execute
   Rake::Task["pack"].execute
 end
