@@ -4,8 +4,8 @@ data_bag_path "/var/chef-solo/data_bags"
 role_path "/var/chef-solo/roles"
 nodes_path "/var/chef-solo/nodes"
 
-json_attribs "<%= node["chef-solo"]["solourl"] %>/nodes/" + `hostname -f`.chomp! + ".json"
 recipe_url "<%= node["chef-solo"]["solourl"] %>/<%= node["chef-solo"]["tarball"]%>"
+json_attribs "/var/chef-solo/nodes/" + `hostname -f`.chomp + ".json"
 
 log_location "/var/log/chef/solo.log"
 verbose_logging true

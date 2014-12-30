@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ryoko.vm.hostname = "ryoko.#{intdomain}"
     ryoko.vm.provider :virtualbox do |vb|
       vb.name = "ryoko"
-      vb.gui = true
+      vb.gui = false
       vb.memory = 512
     end
     # Adapter 1 is default nat

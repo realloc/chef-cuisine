@@ -9,7 +9,7 @@ override_attributes(
                       "root" => ["realloc"]
                     },
                     "chef-solo" => {
-                      "solourl" => "http://192.168.5.1/chef",
-                      "tarball" => "tanabata-cuisine.tar.gz"
+                      "solourl" => "/vagrant/pkg",
+                      "tarball" => "chef-cuisine.tar.gz"
                     }
                     )
