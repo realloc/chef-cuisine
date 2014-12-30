@@ -20,8 +20,8 @@ Set correct network settings in VirtualBox and in Vagrantfile
     $ head -n5 Vagrantfile
     # -*- mode: ruby -*-
 
-    intnetname="devnet"
-    intdomain=".realloc.spb.ru"
+    intnetname="dev"
+    intdomain="tanabata.dev"
     vbnet="192.168.33"
 
 Populate cookbooks
@@ -30,11 +30,12 @@ Populate cookbooks
 
 Run sample VM
 
-    $ vagrant up rainbowdash
+    $ vagrant up ryoko
 
-When you have VM configured, scp misc/solo.rb to vm:/etc/chef/solo.rb
-and run
-    $ chef-solo
+Connect via ssh and run Chef
+
+    $ vagrant ssh ryoko
+    vagrant@ryoko:~$ sudo chef-solo
 
 # Building vagrant baseboxes
 
