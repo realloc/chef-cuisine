@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
-# -*- ruby -*-
+# -*- mode: ruby -*-
 require 'rake'
 require 'rake/clean'
 require 'fileutils'
 
-directory 'cookbooks.solo'
+directory 'cookbooks'
 directory 'pkg'
 directory 'boxes'
+
+pkgname = ENV["CUISINEPKG"] || File.basename(Dir.pwd)
 
 desc "Artifact cleaner"
 def artclean(cpath)
   # Clean git
   Dir.glob("#{cpath}/**/.git").each{|gd| FileUtils.rm_rf gd}
+  # Clean Gemfile.lock
+  Dir.glob("#{cpath}/**/Gemfile.lock").each{|gd| FileUtils.rm_rf gd}
 end
 
-CLEAN.include("cookbooks", "cookbooks.solo", "*.lock", "tmp", "pkg", "iso", "boxes")
+CLEAN.include("cookbooks", "Gemfile.lock", "tmp", "pkg", "iso", "boxes", \
+              "definitions/*/output-*", "definitions/*/packer_cache", ".bundle", ".vagrant")
 
 boxlist = FileList.new
 Dir.glob("definitions/*").each do |dfntn|
@@ -23,91 +28,52 @@ Dir.glob("definitions/*").each do |dfntn|
   boxlist.add("boxes/#{box}")
   desc "Build #{box} from #{dfntn}"
   file "boxes/#{box}" => FileList["#{dfntn}/*"] do |t|
-    sh "bundle exec veewee vbox build #{vm}"
-    sh "VBoxManage controlvm #{vm} poweroff"
-    sh "vagrant basebox export #{vm} -f &&
-        mv #{box} boxes/#{box} && 
-        VBoxManage unregistervm #{vm} --delete"
+    Dir.chdir dfntn do
+      sh "packer build #{vm}.json"
+      FileUtils.mv "#{vm}.box", "../../boxes/"
+    end
   end
 end
 
 desc "Generate Vagrant boxes"
 file "baseboxes" => [ "boxes"] +  boxlist
 
-desc "Regenerate local repository metadata"
-task :repos do
-  Dir.chdir "repos/debian" do
-    sh "wget -nc -i down.list"
-    sh "dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz"
-    sh "dpkg-scansources . /dev/null | gzip -9c > Sources.gz"
-  end
-end
-
-desc "Populate cookbooks.solo"
-task :solo => ["cookbooks.solo"] do
-  tmpdir=`mktemp -d -t XXXXXXX,`.chomp
-  puts "Using tmpdir #{tmpdir}"
-  FileUtils.cp  "Cheffile.solo", tmpdir+"/Cheffile"
-  FileUtils.cp  "Gemfile", tmpdir
-  Dir.chdir tmpdir do
-    sh "bundle check || bundle install"
-    sh "bundle exec librarian-chef install"
-  end
-  FileUtils.cp_r Dir.glob(tmpdir +"/cookbooks/*"), "cookbooks.solo"
-  FileUtils.rm_rf tmpdir
-  artclean "cookbooks.solo"
-end
-
 desc "Populate cookbooks"
-task :client  do
+task :berkshelf  do
   sh "bundle check || bundle install"
-  sh "bundle exec librarian-chef install"
+  FileUtils.rm_rf "cookbooks"
+  sh "bundle exec berks vendor cookbooks"
   artclean "cookbooks"
 end
 
-desc "Prepare and pack chef-client bundle"
-task :pack => ["client", "pkg"] do
-  sh "tar -czf pkg/#{File.basename(Dir.pwd)}.tar.gz cookbooks environments roles data_bags Rakefile"
+desc "Prepare and pack chef bundle"
+task :pack => ["berkshelf", "pkg"] do
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles data_bags nodes Rakefile"
 end
 
-desc "Prepare and pack chef-solo bundle"
-task :spack => ["solo", "pkg"] do
-  sh "tar -czf pkg/chef-solo.tar.gz --transform 's%^cookbooks.solo%cookbooks%' cookbooks.solo roles data_bags"
-end
-
-desc "Prepare and pack chef-client bundle quickly"
+desc "Prepare and pack chef bundle quickly"
 task :qpack  do
-  sh "tar -czf pkg/#{File.basename(Dir.pwd)}.tar.gz cookbooks environments roles data_bags Rakefile"
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles data_bags nodes Rakefile"
 end
 
-desc "Prepare and pack chef-solo bundle quickly"
-task :qspack  do
-  sh "tar -czf pkg/chef-solo.tar.gz --transform 's%^cookbooks.solo%cookbooks%' cookbooks.solo roles data_bags"
+desc "Regenerate cookbooks"
+task :regen  do
+  sh "rm Berksfile.lock || echo 'No berkshelf lock found'"
+  Rake::Task["berkshelf"].execute
+  Rake::Task["pack"].execute
 end
 
 desc "Prepare dev env"
-task :default => ["repos", "client", "pack", "solo", "spack"]
-
-desc "Upload kitchen contents to local Chef Server"
-task :upchef do
-  sh "knife cookbook upload -a -o cookbooks/"
-  sh <<-EOH
-    for bag in `ls data_bags/`; do
-    knife data bag create $bag
-    knife data bag from file $bag data_bags/$bag/
-    done
-  EOH
-  sh "knife role from file roles/*"
-  sh "knife environment from file environments/*"
-end
+task :default => ["berkshelf", "pack"]
 
 desc "Copy artifacts to local web server"
 task :install do
   instdest = ENV["DEST"] ? ENV["DEST"] : "/srv/www"
+  File.directory?("#{instdest}/chef/") || Dir.mkdir("#{instdest}/chef/")
+  File.directory?("#{instdest}/chef/nodes/") || Dir.mkdir("#{instdest}/chef/nodes/")
+  File.directory?("#{instdest}/chef/conf/") || Dir.mkdir("#{instdest}/chef/conf/")
   FileUtils.cp_r Dir.glob("pkg/*") ,"#{instdest}/chef/"
-  FileUtils.cp_r Dir.glob("nodes/*") ,"#{instdest}/chef/"
-  # copy repos here because of possible permissions problem.
-  Dir.glob("repos").each do |repo|
-    FileUtils.cp_r repo ,"#{instdest}/chef/"
-  end
+  FileUtils.cp_r Dir.glob("nodes/*") ,"#{instdest}/chef/nodes"
+  FileUtils.cp_r Dir.glob("conf/*") ,"#{instdest}/chef/conf"
 end
+

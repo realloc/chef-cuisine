@@ -1,0 +1,9 @@
+{ "id" : "realloc",
+  "comment": "Stanislav Bogatyrev",
+  "home": "/home/realloc",
+  "groups": ["root","adm","sudo","src","backup","wheel","user"],
+  "shell": "/bin/bash",
+  "ssh_keys": [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDexh5vifelSvrpnZYYlQseNxvJV7QM1zf18WwJpcoacDC97dy1JO/lQ0VoHvHFTPubQauMXgWos4SKtuFGZ6ClfEhb0+n+MAj+ZS8uhlA0/reEqMEhuH936JhMvJbS5kYAjdz5nCfYkyIqpqEgI/lqhdiYDjrDQgfbwHJ716hkh87Ki2s9j+t/8RtRrcqdw9XSGvH3BrWyAZj7tql6kF84fX2LHhFZzY5UXNyPmU3xBnL7DlFi8gOSz2nR4K12nt8pKYFzsIJMUYIrKTD+9qIfP/raiiJhywWD0tfIHGUhW+BubcRDHREN1uSqfUnGfLUD42DbrImokVsRujJuDPj realloc@motoko"
+              ]
+}
