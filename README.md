@@ -63,7 +63,7 @@ Have fun!
 
 # Copyright and license
 
-Copyright [2014] [Stanislav Bogatyrev]
+Copyright 2014 Stanislav Bogatyrev
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
