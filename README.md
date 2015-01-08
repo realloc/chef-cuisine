@@ -39,10 +39,27 @@ Connect via ssh and run Chef
 
 Have fun!
 
+# Repository structure
+
+* `conf/` - Contains configuration files for Chef named after environments.
+* `cookbooks/` - Cookbooks gathered by Berkshelf.
+* `data_bags/` - Data Bags and items. JSON format is used.
+* `definitions/` - Packer templates for Vagrant baseboxes. Ypu may add other types as well.
+* `misc/` - Useful scripts and files for particular Infrastructure project.
+* `nodes/` - Run-list definitions for each node specified by FQDN. May be symlinks.
+* `roles/` - Roles in Ruby format. Not JSON because of comments, but you may change that.
+* `site-local/` - Cookbooks specific to this very local infrastructure that are unusable anywhere else.
+* `Berksfile` - List of cookbooks to fetch and pack. Dependencies will be solved by Berkshelf.
+* `Berksfile.lock` - Versions of all cookbooks and dependencies.
+* `Gemfile` - List of Ruby gems used in cuisine.
+* `Gemfile.lock` - Versions of gems and dependencies.
+* `Rakefile` - Rake targets for cuisine tasks.
+* `Vagrantfile` - Vagrant boxes configuration.
+
 # Building vagrant baseboxes
 
     $ rake baseboxes
-    $ vagrant box add 'debian7x64' 'boxes/debian7x64.box'
+    $ vagrant box add 'debian-7.7.0-amd64' 'boxes/debian-7.7.0-amd64.box'
 
 # Copyright and license
 
@@ -64,4 +81,3 @@ limitations under the License.
 [Vagrant]: https://www.vagrantup.com/downloads "Vagrant"
 [RVM]: http://rvm.io/rvm/install "Ruby Version Manager"
 [Packer]: https://packer.io/downloads.html "Packer"
-
