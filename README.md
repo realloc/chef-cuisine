@@ -47,6 +47,7 @@ Have fun!
 * `definitions/` - Packer templates for Vagrant baseboxes. Ypu may add other types as well.
 * `misc/` - Useful scripts and files for particular Infrastructure project.
 * `nodes/` - Run-list definitions for each node specified by FQDN. May be symlinks.
+* `pkg/` - Resulting tarball stored here.
 * `roles/` - Roles in Ruby format. Not JSON because of comments, but you may change that.
 * `site-local/` - Cookbooks specific to this very local infrastructure that are unusable anywhere else.
 * `Berksfile` - List of cookbooks to fetch and pack. Dependencies will be solved by Berkshelf.
