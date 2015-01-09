@@ -57,6 +57,78 @@ Have fun!
 * `Rakefile` - Rake targets for cuisine tasks.
 * `Vagrantfile` - Vagrant boxes configuration.
 
+## conf
+
+Chef-solo and other configuration files for different environments of
+Infrastructure. They are not processes automatically, use them in a
+way you like.
+
+## cookbooks
+
+This directory contains the cookbooks used to configure systems in
+your infrastructure. Berkshelf will fetch all cookbooks listed in
+Beksfile, including dependencies, and put them here.
+
+You should not do any manual changes here except one special case
+during development. When you want to quickly change some cookbook and
+test it in running vm you can do `rake qpack` to pack tarball with
+current contents of `cookbooks` directory. Don't forget to reproduce
+your changes later in corresponding cookbook repository.
+
+## data_bags
+
+Each subdirectory represents a Data Bag and contains JSON files for
+data bag items. Sometimes one may want to generate databags items
+with scripts (JSON is easy!) for example items with users' ssh keys.
+
+## definitions
+
+In older version of chef-cuisine veewee was used for Vagrant boxes
+generation. When we moved to packer the old directory name left, so
+feel free to submit PR fixing this issue.
+
+## misc
+
+This directory should be used to store small useful scripts that work
+with data in this repo or required to manipulate chef-related things
+on boxes. For example a script generating ssh keys and putting them in
+data-bag is a good candidate.
+
+## nodes
+
+Each node is identified by it's FQDN. For each node there must be a
+json file with it's run-list defined.
+
+Try not to include in run-list anything but roles. If you want to add
+specific recipe it should go to node's personal role. Otherwise it
+will create a mess hard to understand and debug by others.
+
+## pkg
+
+Here you will find resulting tarball for distribution in your
+infrastructure. Nothing fancy here.
+
+## roles
+
+Roles are stored here. Please prefer Ruby DSL format because it
+supports comments. Our experience says that adding comments to some
+attribute values or explaining why particular order of recipes in
+run-list is chosen is extremely valuable.
+
+## site-local
+
+In normal situation you would want to use separate repository for each
+of your cookbooks. However there are situations when you need to have
+some cookbooks usable only in one infrastructure project, like
+collections of kludges, in the same source tree. In such cases you
+have to put then in this directory and reference them in Berksfile
+like local resources.
+
+```ruby
+cookbook 'kludges-tanabata',
+  :path => 'site-local/kludges-tanabata'
+```
+
 # Building vagrant baseboxes
 
     $ rake baseboxes
