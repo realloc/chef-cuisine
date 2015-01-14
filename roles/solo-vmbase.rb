@@ -10,6 +10,6 @@ override_attributes(
                     },
                     "chef-solo" => {
                       "solourl" => "/vagrant/pkg",
-                      "tarball" => "chef-cuisine.tar.gz"
+                      "tarball" => "tanabata-cuisine.tar.gz"
                     }
                     )
