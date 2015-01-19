@@ -6,8 +6,6 @@ nodes_path "/var/chef-solo/nodes"
 
 recipe_url "http://chef/chef-cuisine.tar.gz"
 json_attribs "http://chef/nodes/" + `hostname -f`.chomp + ".json"
-# Can be used when CHEF-5075 is merged
-# json_attribs "/var/chef-solo/nodes/" + `hostname -f`.chomp + ".json"
 
 log_location "/var/log/chef/solo.log"
 verbose_logging true
