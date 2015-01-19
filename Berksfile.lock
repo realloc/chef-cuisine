@@ -2,13 +2,11 @@ DEPENDENCIES
   kludges-tanabata
     path: site-local/kludges-tanabata
   ntp (= 1.6.5)
-  platform_packages (= 0.4.2)
   ssh-keys (= 1.0.0)
   timezone (= 0.0.1)
 
 GRAPH
   kludges-tanabata (0.0.1)
   ntp (1.6.5)
-  platform_packages (0.4.2)
   ssh-keys (1.0.0)
   timezone (0.0.1)
