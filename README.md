@@ -45,7 +45,7 @@ Have fun!
 * `conf/` - Contains configuration files for Chef named after environments.
 * `cookbooks/` - Cookbooks gathered by Berkshelf.
 * `data_bags/` - Data Bags and items. JSON format is used.
-* `definitions/` - Packer templates for Vagrant baseboxes. Ypu may add other types as well.
+* `definitions/` - Packer templates for Vagrant baseboxes. You may add other types as well.
 * `misc/` - Useful scripts and files for particular Infrastructure project.
 * `nodes/` - Run-list definitions for each node specified by FQDN. May be symlinks.
 * `pkg/` - Resulting tarball stored here.
