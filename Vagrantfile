@@ -15,6 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "ryoko"
       vb.gui = false
       vb.memory = 512
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
     # Adapter 1 is default nat
     ryoko.vm.network "private_network", auto_config: true, ip:"#{vbnet}.12", :adapter => 2
