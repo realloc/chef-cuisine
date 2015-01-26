@@ -1,6 +1,6 @@
 DEPENDENCIES
   kludges-tanabata
-    path: site-local/kludges-tanabata
+    path: site-cookbooks/kludges-tanabata
   ntp (= 1.6.5)
   ssh-keys (= 1.0.0)
   timezone (= 0.0.1)

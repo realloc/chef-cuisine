@@ -8,4 +8,4 @@ cookbook 'ssh-keys', '1.0.0'
 cookbook 'timezone', '0.0.1'
 
 cookbook 'kludges-tanabata',
-  :path => 'site-local/kludges-tanabata'
+  :path => 'site-cookbooks/kludges-tanabata'

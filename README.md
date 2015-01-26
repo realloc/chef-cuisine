@@ -50,7 +50,7 @@ Have fun!
 * `nodes/` - Run-list definitions for each node specified by FQDN. May be symlinks.
 * `pkg/` - Resulting tarball stored here.
 * `roles/` - Roles in Ruby format. Not JSON because of comments, but you may change that.
-* `site-local/` - Cookbooks specific to this very local infrastructure that are unusable anywhere else.
+* `site-cookbooks/` - Cookbooks specific to this very local infrastructure that are unusable anywhere else.
 * `Berksfile` - List of cookbooks to fetch and pack. Dependencies will be solved by Berkshelf.
 * `Berksfile.lock` - Versions of all cookbooks and dependencies.
 * `Gemfile` - List of Ruby gems used in cuisine.
@@ -116,7 +116,7 @@ supports comments. Our experience says that adding comments to some
 attribute values or explaining why particular order of recipes in
 run-list is chosen is extremely valuable.
 
-## site-local
+## site-cookbooks
 
 In normal situation you would want to use separate repository for each
 of your cookbooks. However there are situations when you need to have
@@ -127,7 +127,7 @@ like local resources.
 
 ```ruby
 cookbook 'kludges-tanabata',
-  :path => 'site-local/kludges-tanabata'
+  :path => 'site-cookbooks/kludges-tanabata'
 ```
 
 # Building vagrant baseboxes
