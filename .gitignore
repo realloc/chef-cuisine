@@ -3,6 +3,7 @@ pkg
 iso
 boxes
 cookbooks
+roles/*.json
 Gemfile.lock
 .vagrant
 repos/debian/Packages.gz
