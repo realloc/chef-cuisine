@@ -19,7 +19,7 @@ def artclean(cpath)
   Dir.glob("#{cpath}/**/Gemfile.lock").each{|gd| FileUtils.rm_rf gd}
 end
 
-CLEAN.include("cookbooks", "Gemfile.lock", "tmp", "pkg", "iso", "boxes", \
+CLEAN.include("cookbooks", "Gemfile.lock", "tmp", "pkg", "iso", "boxes", "roles/*.json", \
               "definitions/*/output-*", "definitions/*/packer_cache", ".bundle", ".vagrant")
 
 boxlist = FileList.new
@@ -49,12 +49,12 @@ end
 
 desc "Prepare and pack chef bundle"
 task :pack => ["berkshelf", "pkg", "roles_to_json"] do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes"
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Prepare and pack chef bundle quickly"
 task :qpack  do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes"
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Regenerate cookbooks"
