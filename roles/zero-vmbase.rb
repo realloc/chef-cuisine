@@ -1,8 +1,8 @@
-name "solo-vmbase"
-description "Basic chef-solo role for virtual boxes"
+name "zero-vmbase"
+description "Basic chef-zero role for virtual boxes"
 run_list( "recipe[omnibus_updater]",
           "recipe[ssh-keys]",
-          "recipe[kludges-tanabata::chef-solovm]"
+          "recipe[kludges-tanabata::chef-zerovm]"
           )
 override_attributes(
                     "ssh_keys" => {

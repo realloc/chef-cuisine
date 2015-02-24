@@ -19,11 +19,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     # Adapter 1 is default nat
     ryoko.vm.network "private_network", auto_config: true, ip:"#{vbnet}.12", :adapter => 2
-    ryoko.vm.provision :chef_solo do |chef|
+    ryoko.vm.provision :chef_zero do |chef|
       chef.data_bags_path = "data_bags"
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
-      chef.add_role "solo-vmbase"
+      chef.nodes_path = "nodes"
+      chef.add_role "zero-vmbase"
     end
   end
 

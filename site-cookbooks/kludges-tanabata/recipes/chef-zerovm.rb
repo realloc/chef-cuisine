@@ -1,6 +1,6 @@
 # Kludge for chef-solo config in VM env.
 
-["/etc/chef", "/var/chef-solo", "/var/log/chef"].each do |dir|  
+["/etc/chef", "/var/chef-zero", "/var/log/chef"].each do |dir|
   directory dir do
     recursive true
     owner "root"
@@ -10,9 +10,9 @@
   end
 end
 
-template "/etc/chef/solo.rb" do
+template "/etc/chef/client.rb" do
   variables( :solourl => node["chef-solo"]["solourl"])
-  source "solo.rb.erb"
+  source "client.rb.erb"
   owner "root"
   group "root"
   mode 0644
