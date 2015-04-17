@@ -10,6 +10,8 @@ verbose_logging true
 recipe_url "<%= node["chef-solo"]["solourl"] %>/<%= node["chef-solo"]["tarball"] %>"
 recipe_path "/var/chef-zero/recipes.tgz"
 
+#client_key "/etc/chef/client.pem"
+
 # FIXME:
 # * Add repo dir cleanup
 # * Use what we have if remote url is unavailable

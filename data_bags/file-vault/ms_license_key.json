@@ -1,0 +1,15 @@
+{
+  "id": "ms_license_key",
+  "file-name": {
+    "encrypted_data": "YdrtgaGL+tTM+kaTZsCtGKV6h23I4uCkkVVuch34lAE=\n",
+    "iv": "6/s+Rq+VDg9IzM+E8IDs0w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "file-content": {
+    "encrypted_data": "G3YXMYRpzL5c7zMlYYu4j2zmNQMM3FRAyGxV0X+40FD8GnoBFD+BTQhAn55c\nGYuq1f+buLflRIUtJLMxiSzdng==\n",
+    "iv": "m28HOrr/AunQzbABA52omQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
