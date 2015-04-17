@@ -9,10 +9,7 @@ DEPENDENCIES
   ntp (= 1.6.5)
   omnibus_updater (= 1.0.2)
   ssh-keys (= 1.0.0)
-  ssl_certificate
-    git: git@github.com:onddo/ssl_certificate-cookbook.git
-    revision: a04beeba638cfd7e4413a91e4455425df38d41b6
-    ref: a04beeb
+  ssl_certificate (= 1.4.0)
   timezone (= 0.0.1)
 
 GRAPH
