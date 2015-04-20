@@ -3,6 +3,7 @@
 require 'rake'
 require 'rake/clean'
 require 'fileutils'
+require 'chef/role'
 
 directory 'cookbooks'
 directory 'pkg'
@@ -18,7 +19,7 @@ def artclean(cpath)
   Dir.glob("#{cpath}/**/Gemfile.lock").each{|gd| FileUtils.rm_rf gd}
 end
 
-CLEAN.include("cookbooks", "Gemfile.lock", "tmp", "pkg", "iso", "boxes", \
+CLEAN.include("cookbooks", "Gemfile.lock", "tmp", "pkg", "iso", "boxes", "roles/*.json", \
               "definitions/*/output-*", "definitions/*/packer_cache", ".bundle", ".vagrant")
 
 boxlist = FileList.new
@@ -47,13 +48,13 @@ task :berkshelf  do
 end
 
 desc "Prepare and pack chef bundle"
-task :pack => ["berkshelf", "pkg"] do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles data_bags nodes Rakefile"
+task :pack => ["berkshelf", "pkg", "roles_to_json"] do
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Prepare and pack chef bundle quickly"
 task :qpack  do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles data_bags nodes Rakefile"
+  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Regenerate cookbooks"
@@ -61,6 +62,16 @@ task :regen  do
   sh "rm Berksfile.lock || echo 'No berkshelf lock found'"
   Rake::Task["berkshelf"].execute
   Rake::Task["pack"].execute
+end
+
+desc "Convert ruby roles from ruby to json, creating/overwriting json files."
+task :roles_to_json do
+  Dir.glob('roles/*.rb') do |rb_file|
+    role = Chef::Role.new
+    role.from_file(rb_file)
+    json_file = rb_file.sub(/\.rb$/,'.json')
+    File.open(json_file, 'w'){|f| f.write(JSON.pretty_generate(role))}
+  end
 end
 
 desc "Prepare dev env"
@@ -76,4 +87,3 @@ task :install do
   FileUtils.cp_r Dir.glob("nodes/*") ,"#{instdest}/chef/nodes"
   FileUtils.cp_r Dir.glob("conf/*") ,"#{instdest}/chef/conf"
 end
-

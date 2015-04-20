@@ -1,0 +1,9 @@
+{
+  "id": "flurb",
+  "foop": {
+    "encrypted_data": "v8xKhSeKrjExjYASu0o9dsSvj6xFvMEE3RwqVynKgXLVqjOAyOzcQDZRMjKd\nth9f\n",
+    "iv": "Wi6vXFsn8B5foBdx2ssvPg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

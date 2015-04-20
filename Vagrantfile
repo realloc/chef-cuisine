@@ -8,8 +8,8 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :ryoko do |ryoko|
-    ryoko.vm.box = "debian-7.7.0-amd64"
-    ryoko.vm.box_url = "https://realloc.spb.ru/boxes/debian-7.7.0-amd64.box"
+    ryoko.vm.box = "debian-7.8.0-amd64"
+    ryoko.vm.box_url = "https://realloc.spb.ru/boxes/debian-7.8.0-amd64.box"
     ryoko.vm.hostname = "ryoko.#{intdomain}"
     ryoko.vm.provider :virtualbox do |vb|
       vb.name = "ryoko"
@@ -19,11 +19,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     # Adapter 1 is default nat
     ryoko.vm.network "private_network", auto_config: true, ip:"#{vbnet}.12", :adapter => 2
-    ryoko.vm.provision :chef_solo do |chef|
+    ryoko.vm.provision :chef_zero do |chef|
       chef.data_bags_path = "data_bags"
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
-      chef.add_role "solo-vmbase"
+      chef.nodes_path = "nodes"
+      chef.add_role "zero-vmbase"
+    end
+    # Copy client.pem. Demo purpuses only!
+    ryoko.vm.provision "file", source: "clients/ryoko.tanabata.dev.pem", destination: "/tmp/client.pem"
+    ryoko.vm.provision :shell do |shell|
+      shell.privileged = true
+      shell.inline = "mv /tmp/client.pem /etc/chef/client.pem; sed -i 's/#client_key/client_key/' /etc/chef/client.rb"
     end
   end
 
