@@ -13,5 +13,8 @@ definitions/*/output*
 definitions/*/*.box
 .bundle*
 .vagrant*
+.project
+clients/*.pem
+roles/*.json
 
 
