@@ -49,12 +49,12 @@ end
 
 desc "Prepare and pack chef bundle"
 task :pack => ["berkshelf", "pkg", "roles_to_json"] do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
+  sh "tar -czf pkg/#{pkgname}.tar.gz --exclude='clients/*.pem' cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Prepare and pack chef bundle quickly"
 task :qpack  do
-  sh "tar -czf pkg/#{pkgname}.tar.gz cookbooks conf roles/*.json data_bags nodes clients"
+  sh "tar -czf pkg/#{pkgname}.tar.gz --exclude='clients/*.pem' cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc "Regenerate cookbooks"
