@@ -36,7 +36,7 @@ Run sample VM
 Connect via ssh and run Chef
 
     $ vagrant ssh ryoko
-    vagrant@ryoko:~$ sudo chef-solo
+    vagrant@ryoko:~$ sudo chef-client
 
 Have fun!
 
@@ -60,7 +60,7 @@ Have fun!
 
 ## conf
 
-Chef-solo and other configuration files for different environments of
+Chef's and other configuration files for different environments of
 Infrastructure. They are not processes automatically, use them in a
 way you like.
 
@@ -133,7 +133,7 @@ cookbook 'kludges-tanabata',
 # Building vagrant baseboxes
 
     $ rake baseboxes
-    $ vagrant box add 'debian-7.7.0-amd64' 'boxes/debian-7.7.0-amd64.box'
+    $ vagrant box add 'debian-7.8.0-amd64' 'boxes/debian-7.8.0-amd64.box'
 
 # Copyright and license
 
