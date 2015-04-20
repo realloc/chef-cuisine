@@ -26,6 +26,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.nodes_path = "nodes"
       chef.add_role "zero-vmbase"
     end
+    # Copy client.pem. Demo purpuses only!
+    ryoko.vm.provision "file", source: "clients/ryoko.tanabata.dev.pem", destination: "/tmp/client.pem"
+    ryoko.vm.provision :shell do |shell|
+      shell.privileged = true
+      shell.inline = "mv /tmp/client.pem /etc/chef/client.pem; sed -i 's/#client_key/client_key/' /etc/chef/client.rb"
+    end
   end
 
 end
