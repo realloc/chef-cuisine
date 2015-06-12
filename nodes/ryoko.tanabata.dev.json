@@ -1,6 +1,8 @@
 {
-    "run_list": [ "role[tanabata-base]",
-                  "role[solo-env-dev]",
-                  "role[ryoko_tanabata_dev]"
-                ]
+  "name": "ryoko.tanabata.dev",
+  "run_list": [
+    "role[tanabata-base]",
+    "role[solo-env-dev]",
+    "role[ryoko_tanabata_dev]"
+  ]
 }
