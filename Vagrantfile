@@ -8,8 +8,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :ryoko do |ryoko|
-    ryoko.vm.box = "debian-7.8.0-amd64"
-    ryoko.vm.box_url = "https://realloc.spb.ru/boxes/debian-7.8.0-amd64.box"
+    ryoko.vm.box = "bento/debian-8.2"
     ryoko.vm.hostname = "ryoko.#{intdomain}"
     ryoko.vm.provider :virtualbox do |vb|
       vb.name = "ryoko"
