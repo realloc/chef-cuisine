@@ -17,7 +17,6 @@ documentation.
 
 * [ChefDK][ChefDK]
 * [Vagrant][Vagrant]
-* [RVM][RVM]
 * [Packer][Packer]
 * [VirtualBox][VirtualBox]
 
@@ -153,6 +152,5 @@ limitations under the License.
 
 [ChefDK]: https://www.getchef.com/downloads/chef-dk "Chef Development Kit"
 [Vagrant]: https://www.vagrantup.com/downloads "Vagrant"
-[RVM]: http://rvm.io/rvm/install "Ruby Version Manager"
 [Packer]: https://packer.io/downloads.html "Packer"
 [VirtualBox]: https://www.virtualbox.org/ "VirtualBox"
