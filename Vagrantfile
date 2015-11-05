@@ -1,36 +1,33 @@
 # -*- mode: ruby -*-
 
-intnetname="dev"
-intdomain="tanabata.dev"
-vbnet="192.168.33"
+intdomain = 'tanabata.dev'
+vbnet = '192.168.33'
 
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   config.vm.define :ryoko do |ryoko|
-    ryoko.vm.box = "bento/debian-8.2"
+    ryoko.vm.box = 'bento/debian-8.2'
     ryoko.vm.hostname = "ryoko.#{intdomain}"
     ryoko.vm.provider :virtualbox do |vb|
-      vb.name = "ryoko"
+      vb.name = 'ryoko'
       vb.gui = false
       vb.memory = 512
-      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
     end
     # Adapter 1 is default nat
-    ryoko.vm.network "private_network", auto_config: true, ip:"#{vbnet}.12", :adapter => 2
+    ryoko.vm.network 'private_network', auto_config: true, ip: "#{vbnet}.12", adapter: 2
     ryoko.vm.provision :chef_zero do |chef|
-      chef.data_bags_path = "data_bags"
-      chef.cookbooks_path = "cookbooks"
-      chef.roles_path = "roles"
-      chef.nodes_path = "nodes"
-      chef.add_role "zero-vmbase"
+      chef.data_bags_path = 'data_bags'
+      chef.cookbooks_path = 'cookbooks'
+      chef.roles_path = 'roles'
+      chef.nodes_path = 'nodes'
+      chef.add_role 'zero-vmbase'
     end
     # Copy client.pem. Demo purpuses only!
-    ryoko.vm.provision "file", source: "clients/ryoko.tanabata.dev.pem", destination: "/tmp/client.pem"
+    ryoko.vm.provision 'file', source: 'clients/ryoko.tanabata.dev.pem', destination: '/tmp/client.pem'
     ryoko.vm.provision :shell do |shell|
       shell.privileged = true
       shell.inline = "mv /tmp/client.pem /etc/chef/client.pem; sed -i 's/#client_key/client_key/' /etc/chef/client.rb"
     end
   end
-
 end

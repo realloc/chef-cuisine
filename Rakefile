@@ -46,10 +46,10 @@ Dir.glob('definitions/*').each do |dfntn|
 end
 
 desc 'Generate Vagrant boxes'
-file 'baseboxes' => ['boxes'] +  boxlist
+file 'baseboxes' => ['boxes'] + boxlist
 
 desc 'Populate cookbooks'
-task :berkshelf  do
+task :berkshelf do
   sh 'bundle check || bundle install'
   FileUtils.rm_rf 'cookbooks'
   sh 'bundle exec berks vendor cookbooks'
@@ -62,12 +62,12 @@ task pack: %w(berkshelf pkg roles_to_json) do
 end
 
 desc 'Prepare and pack chef bundle quickly'
-task :qpack  do
+task :qpack do
   sh "tar -czf pkg/#{pkgname}.tar.gz --exclude='clients/*.pem' cookbooks conf roles/*.json data_bags nodes clients"
 end
 
 desc 'Regenerate cookbooks'
-task :regen  do
+task :regen do
   sh 'rm Berksfile.lock || echo No berkshelf lock found'
   Rake::Task['berkshelf'].execute
   Rake::Task['pack'].execute
