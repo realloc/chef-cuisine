@@ -2,14 +2,13 @@ cache_path "/var/chef/"
 chef_repo_path "/var/chef-zero"
 
 enable_reporting false
-no_lazy_load false
 chef_zero.enabled true
 local_mode true
 
 log_location "/var/log/chef/zero.log"
 verbose_logging true
 
-recipe_url "<%= node["chef-solo"]["solourl"] %>/<%= node["chef-solo"]["tarball"] %>"
+recipe_url "<%= node['chef-solo']['solourl'] %>/<%= node['chef-solo']['tarball'] %>"
 #recipe_path "/var/chef-zero/recipes.tgz"
 
 #client_key "/etc/chef/client.pem"
