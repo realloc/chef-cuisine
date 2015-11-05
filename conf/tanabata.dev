@@ -2,7 +2,6 @@ cache_path "/var/chef/"
 chef_repo_path "/var/chef-zero"
 
 enable_reporting false
-no_lazy_load false
 chef_zero.enabled true
 local_mode true
 
