@@ -1,26 +1,29 @@
 DEPENDENCIES
   attr-vault
     git: https://github.com/realloc/cookbook-attr-vault.git
-    revision: 8e710b9bd1872decb8d8e9dc7f1c9e9d058ac758
+    revision: 912efa22dccfccda2e85b6a02550b6beb1246c5f
     ref: develop
-  file-vault (= 0.0.2)
+  file-vault
+    git: https://github.com/realloc/cookbook-file-vault.git
+    revision: c6f58761368ed9dcd8c2127caa62188476b4ffb6
+    ref: master
   kludges-tanabata
     path: site-cookbooks/kludges-tanabata
-  ntp (= 1.6.5)
+  ntp (= 1.8.6)
   omnibus_updater (= 1.0.2)
-  ssh-keys (= 1.0.0)
-  ssl_certificate (= 1.4.0)
+  ssh-keys (= 1.2.7)
+  ssl_certificate (= 1.9.0)
   timezone (= 0.0.1)
 
 GRAPH
   attr-vault (0.1.0)
-    chef-vault (~> 1.0.4)
-  chef-vault (1.0.4)
-  file-vault (0.0.2)
-    chef-vault (~> 1.0.4)
+    chef-vault (> 1.0.4)
+  chef-vault (1.3.2)
+  file-vault (0.0.3)
+    chef-vault (>= 0.0.0)
   kludges-tanabata (0.0.1)
-  ntp (1.6.5)
+  ntp (1.8.6)
   omnibus_updater (1.0.2)
-  ssh-keys (1.0.0)
-  ssl_certificate (1.4.0)
+  ssh-keys (1.2.7)
+  ssl_certificate (1.9.0)
   timezone (0.0.1)
