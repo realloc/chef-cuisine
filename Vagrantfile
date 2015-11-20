@@ -12,10 +12,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = 'ryoko'
       vb.gui = false
       vb.memory = 512
-      vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+      vb.customize ['modifyvm', :id,
+                    '--natdnshostresolver1', 'on']
     end
     # Adapter 1 is default nat
-    ryoko.vm.network 'private_network', auto_config: true, ip: "#{vbnet}.12", adapter: 2
+    ryoko.vm.network 'private_network',
+                     auto_config: true,
+                     ip: "#{vbnet}.12",
+                     adapter: 2
     ryoko.vm.provision :chef_zero do |chef|
       chef.data_bags_path = 'data_bags'
       chef.cookbooks_path = 'cookbooks'
@@ -24,7 +28,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.add_role 'zero-vmbase'
     end
     # Copy client.pem. Demo purpuses only!
-    ryoko.vm.provision 'file', source: 'clients/ryoko.tanabata.dev.pem', destination: '/tmp/client.pem'
+    ryoko.vm.provision 'file',
+                       source: 'clients/ryoko.tanabata.dev.pem',
+                       destination: '/tmp/client.pem'
     ryoko.vm.provision :shell do |shell|
       shell.privileged = true
       shell.inline = "mv /tmp/client.pem /etc/chef/client.pem; sed -i 's/#client_key/client_key/' /etc/chef/client.rb"
