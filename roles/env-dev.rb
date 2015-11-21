@@ -1,4 +1,4 @@
-name 'solo-env-dev'
+name 'env-dev'
 description 'Chef-solo environment for local.dev'
 override_attributes(
   'omnibus_updater' => {
